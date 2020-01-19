@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <!-- Custom CSS-->
-    <link type="text/css" href='static/main.css'>
+    <link rel='stylesheet' type='text/css' href='static/main.css'>
+
     <!--uses a custom title if one exists-->
         {% if title %}
             <title>JKerola - {{title}}</title>
@@ -23,7 +24,23 @@
 
     {% endblock content %}
     <footer>
-        <div></div>
+        <div class='container'>
+            <div class='mx-auto d-block text-center'>
+                <a href='https://github.com/jkerola'>
+                    <img src="{{ url_for('static', filename='images/github_mark_64.png') }}" 
+                        class='img-fluid mr-2' alt='github logo'>
+                </a>
+                <a href='#'>
+                    <img src="{{ url_for('static', filename='images/linkedin_bug_64.png') }}"
+                        class='img-fluid' alt='linked.in logo'>
+                </a>
+            </div>
+            <div class='copyright-body'>
+                <p class='copyright-text'>
+                   Copyright &#169; Janne Kerola 2020
+                </p>
+            </div>
+        </div>
     </footer>
 
     <!-- Optional JavaScript -->

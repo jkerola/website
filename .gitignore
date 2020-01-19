@@ -1,0 +1,12 @@
+#folders
+pwp/
+__pycache__/
+#databases
+*.db
+#images
+*.png
+*.jpg
+#vscode
+.vscode/
+#app configurations
+config.py

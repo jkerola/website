@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class='row'>
+    <div class='col-md-8 mr-auto'>
+        <div class='content-section'>
+            <div class='col-md-auto'>
+                <h2 class='article-title'>Profile</h2>
+                <p>Contents of CV</p>
+            </div>
+        </div>
+    </div>
+    <div class='col-4'>
+        <div>
+            <div class='col-md-auto'>
+                <img class='profile-img img-responsive' src="{{ url_for('static', filename='images/template_picture.jpg') }}"
+                alt='Profile Picture'>
+            </div>
+        </div>
+    </div>
+</div>
+    {% endblock content %}

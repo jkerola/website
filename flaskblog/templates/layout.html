@@ -9,8 +9,11 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <!-- Custom CSS-->
-    <link rel='stylesheet' type='text/css' href='static/main.css'>
+    <!-- Custom CSS -->
+    <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='main.css') }}">
+
+    <!-- Materials.io web icons-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!--uses a custom title if one exists-->
         {% if title %}
@@ -20,33 +23,82 @@
         {% endif %}
 </head>
 <body>
-    {% block content %}
-
-    {% endblock content %}
-    <footer>
-        <div class='container'>
-            <div class='mx-auto d-block text-center'>
-                <a href='https://github.com/jkerola'>
-                    <img src="{{ url_for('static', filename='images/github_mark_64.png') }}" 
-                        class='img-fluid mr-2' alt='github logo'>
-                </a>
-                <a href='#'>
-                    <img src="{{ url_for('static', filename='images/linkedin_bug_64.png') }}"
-                        class='img-fluid' alt='linked.in logo'>
-                </a>
+    <!--navbar from boostrap documentation example, customized for personal use-->
+    <!--https://getbootstrap.com/docs/4.4/components/navbar/-->
+    <header role='header' class='site-header'>
+        <div class='container-fluid border navbar-container'>
+            <nav class="navbar navbar-expand navbar-light">
+                <a class="navbar-brand offset-md-1 col-r-2" href="/"><i class='material-icons face'>face</i>Janne Kerola</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                            <a class="nav-link" href="{{ url_for('main.profile') }}">Profile<span class="sr-only">(current)</span></a>
+                            <a class='nav-link' href='#blog.blog'>Blog</a>
+                            <a class='nav-link' href='#main.contact'>Contact</a>
+                    </ul>
+                    <ul class='navbar-nav'>
+                        <form class="form-inline">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-info my-2 my-sm-0 mr-4" type="submit">Search</button>
+                        </form>
+                        <a class='nav-link' href='#blog.login'>
+                            <i class='material-icons'>input</i>
+                        </a>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main role='main' class='container-fluid'>
+        <div class='row'>
+            <div class='col-md-8 offset-md-2'>
+                <!--display flash messages if any present-->
+                {% with messages = get_flashed_messages(with_categories=True) %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class='alert alert-{{category}}'>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                {% block content %}
+                {% endblock content %}
             </div>
-            <div class='copyright-body'>
-                <p class='copyright-text'>
-                   Copyright &#169; Janne Kerola 2020
+        </div>
+    </main>
+    <!--links to github, linked in and copyright-->
+    <footer role='footer' class='container-fluid footer-body'>
+        <div class='row'>
+            <div class='col-1 mr-auto'></div>
+            <div class='col-6 offset-md-1'>
+                <a href='https://github.com/jkerola'>
+                    <img src="{{ url_for('static', filename='images/github.svg') }}"
+                        class='img-responsive footer-img' alt='github logo'></a>
+                    <a class='col-8' href='#'>
+                        <img src="{{ url_for('static', filename='images/linkedin_bug.png') }}"
+                            class='footer-img img-responsive' alt='linked.in logo'>
+                    </a>
+                </div>
+                <div class=' col-1 offset-md-1 align-self-end mr-auto help-icons'>
+                    <a href='#'>
+                        <i class='material-icons footer-icons md-48 md-dark'>help</i></a>
+                    <a href='#'>
+                        <i class='material-icons footer-icons md-48 md-dark'>feedback</i></a>
+                </div>
+                <p class='copyright-text col-md-12 h-25 mt-3'>
+                    Copyright &#169; Janne Kerola 2020
                 </p>
             </div>
         </div>
     </footer>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-</body>
-</html>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        </body
+        >
+        </html>

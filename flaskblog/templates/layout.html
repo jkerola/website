@@ -28,23 +28,23 @@
     <header role='header' class='site-header'>
         <div class='container-fluid border navbar-container'>
             <nav class="navbar navbar-expand navbar-light">
-                <a class="navbar-brand offset-md-1 col-r-2" href="/"><i class='material-icons face'>face</i>Janne Kerola</a>
+                <a title='JKerola.com' class="navbar-brand offset-md-1 col-r-2" href="/"><i class='material-icons face'>face</i>Janne Kerola</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                            <a class="nav-link" href="{{ url_for('main.profile') }}">Profile<span class="sr-only">(current)</span></a>
-                            <a class='nav-link' href='#blog.blog'>Blog</a>
-                            <a class='nav-link' href='#main.contact'>Contact</a>
+                            <a title='Profile' class="nav-link" href="{{ url_for('main.profile') }}">Profile<span class="sr-only">(current)</span></a>
+                            <a title='Blog' class='nav-link' href="{{ url_for('main.blog') }}">Blog</a>
+                            <a title='Contact' class='nav-link' href="{{ url_for('main.contact') }}">Contact</a>
                     </ul>
                     <ul class='navbar-nav'>
-                        <form class="form-inline">
+                        <form title='Search' class="form-inline">
                             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-info my-2 my-sm-0 mr-4" type="submit">Search</button>
                         </form>
                         <a class='nav-link' href='#blog.login'>
-                            <i class='material-icons'>input</i>
+                            <i title='Login' class='material-icons'>input</i>
                         </a>
                     </ul>
                 </div>
@@ -74,19 +74,81 @@
         <div class='row'>
             <div class='col-1 mr-auto'></div>
             <div class='col-6 offset-md-1'>
-                <a href='https://github.com/jkerola'>
+                <a title='Github Profile' href='https://github.com/jkerola'>
                     <img src="{{ url_for('static', filename='images/github.svg') }}"
-                        class='img-responsive footer-img' alt='github logo'></a>
-                    <a class='col-8' href='#'>
+                        class='img-responsive footer-img mr-4' alt='github logo'></a>
+                    <a title='Linked.in Profile' href='#'>
                         <img src="{{ url_for('static', filename='images/linkedin_bug.png') }}"
                             class='footer-img img-responsive' alt='linked.in logo'>
                     </a>
                 </div>
                 <div class=' col-1 offset-md-1 align-self-end mr-auto help-icons'>
-                    <a href='#'>
-                        <i class='material-icons footer-icons md-48 md-dark'>help</i></a>
-                    <a href='#'>
-                        <i class='material-icons footer-icons md-48 md-dark'>feedback</i></a>
+                    <a href='#about' title='About' data-toggle="modal" data-target="#aboutModal">
+                        <i class='material-icons footer-icons md-48 md-dark'>help</i></button></a>
+                            <!-- Modal -->
+                            <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class='about'>About</h3>
+                                    <button title='Close' type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body pl-2 pr-2">
+                                    <h5 class='about'>What is this site?</h5>
+                                    <p class='about'>
+                                        This is the personal website and blog of yours truly.
+                                    </p>
+                                    <h5 class='about'>How did you make it?</h5>
+                                    <p class='about'>
+                                        This website was built with Flask.<br>
+                                        Content made with flask-blogging is stored in an SQLite database using SQLAlchemy.
+                                        The frontend is bog-standard HTML and CSS, with styles and minimal javascript from Bootstrap.
+                                        Served from a DigitalOcean droplet straight to your browser.
+                                        <br><br>
+                                        If you have any questions, feel free to 
+                                        <a href="{{ url_for('main.contact') }}">message me here!</a>
+                                </div>
+                                <div class="modal-footer">
+                                    <button title='Close' type="button" class="btn btn-outline-info" data-dismiss="modal">Close</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                    <!--end modal-->
+                    <a title='Report' href='#'>
+                        <i class='material-icons footer-icons md-48 md-dark' data-toggle="modal" data-target="#reportModal">feedback</i></a>
+                        <!-- Modal -->
+                        <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                            <div class="modal-content about">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" >Report</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="report-title" class="col-form-label">Issue:</label>
+                                                <input type="text" class="form-control" id="report-title">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="report-text" class="col-form-label">Description:</label>
+                                                <textarea class="form-control" id="report-text"></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Send Report</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <!--end modal-->
                 </div>
                 <p class='copyright-text col-md-12 h-25 mt-3'>
                     Copyright &#169; Janne Kerola 2020

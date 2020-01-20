@@ -6,7 +6,17 @@ body {
 }
 
 h1 h2 h3 h4 h5 h6 {
-    color: #00171F;;
+    color: #00171F;
+}
+.about {
+    background: white;
+    color: #00171F;
+    text-align: left;
+    border: 1px solid white;
+    border-radius: 2px;
+}
+.about-background {
+    background:#00A8E8;
 }
 .navbar-container{
     padding: 0px;
@@ -68,7 +78,29 @@ h1 h2 h3 h4 h5 h6 {
 .footer-icons {
     padding-left: 32px;
 }
+/* thank you stackoverflow user Abel Raj
+https://stackoverflow.com/questions/20003139/how-to-add-a-tooltip-for-an-icon-inside-my-css-file
+*/
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
 
+.tooltip:hover:after {
+    visibility: visible;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    content: attr(title);
+   
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+  
 .profile-img {
     max-width: 400px;
     height: auto;

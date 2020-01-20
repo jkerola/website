@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flaskblog.config import Config
 #routes
 from flaskblog.main.routes import main
+from flaskblog.post.routes import post
 
 #database
 DB = SQLAlchemy()
@@ -20,6 +21,7 @@ def create_app(config_class=Config):
 
     #routes
     app.register_blueprint(main)
+    app.register_blueprint(post)
 
     #errors
     # from flaskblog.errors.handlers import errors

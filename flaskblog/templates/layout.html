@@ -25,32 +25,46 @@
 <body>
     <!--navbar from boostrap documentation example, customized for personal use-->
     <!--https://getbootstrap.com/docs/4.4/components/navbar/-->
-    <header role='header' class='site-header'>
-        <div class='container-fluid border navbar-container'>
-            <nav class="navbar navbar-expand navbar-light">
+    <div class='container-fluid border navbar-container'>
+        <header role='header' class='site-header'>
+            <nav class="navbar navbar-expand-xl navbar-light">
                 <a title='JKerola.com' class="navbar-brand offset-md-1 col-r-2" href="/"><i class='material-icons face'>face</i>Janne Kerola</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                            <a title='Profile' class="nav-link" href="{{ url_for('main.profile') }}">Profile<span class="sr-only">(current)</span></a>
-                            <a title='Blog' class='nav-link' href="{{ url_for('main.blog') }}">Blog</a>
-                            <a title='Contact' class='nav-link' href="{{ url_for('main.contact') }}">Contact</a>
+                <div class="collapse navbar-collapse" id="navbar">
+                    <ul class="navbar-nav mr-auto nav-item">
+                            <a title='Profile' class="nav-link" href="{{ url_for('main.profile') }}">
+                                <i class='material-icons face'>accessibility</i>Profile</a>
+                            <a title='Blog' class='nav-link' href="{{ url_for('blogging.index') }}">
+                                <i class='material-icons face'>rss_feed</i>Blog</a>
+                            <a title='Contact' class='nav-link' href="{{ url_for('main.contact') }}">
+                                <i class='material-icons face'>email</i>Contact</a>
                     </ul>
-                    <ul class='navbar-nav'>
+                    <ul class='navbar-nav nav-item'>
                         <form title='Search' class="form-inline">
-                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-info my-2 my-sm-0 mr-4" type="submit">Search</button>
+                            <!--search bar disabled for now
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-info my-2 my-sm-0 mr-4" type="submit">Search</button>
+                            -->
                         </form>
-                        <a class='nav-link' href="{{ url_for('user.login') }}">
-                            <i title='Login' class='material-icons'>input</i>
-                        </a>
+                        {% if current_user.is_authenticated %}
+                            <a class='nav-link' href="{{ url_for('user.account') }}">
+                                <i title='Login' class='material-icons face'>account_box</i>Account
+                            </a>
+                            <a class='nav-link' href="{{ url_for('user.logout') }}">
+                                <i title='Login' class='material-icons face'>power_settings_new</i>Log Out
+                            </a>
+                        {% else %}
+                            <a class='nav-link' href="{{ url_for('user.login') }}">
+                                <i title='Login' class='material-icons face'>input</i>Login
+                            </a>
+                        {% endif %}
                     </ul>
                 </div>
             </nav>
-        </div>
-    </header>
+        </header>
+    </div>
     <main role='main' class='container-fluid'>
         <div class='row'>
             <div class='col-md-8 offset-md-2'>
@@ -155,10 +169,10 @@
                     </div>
                     <!--end modal-->
                 </div>
-                <p class='copyright-text col-md-12 h-25 mt-3'>
-                    Copyright &#169; Janne Kerola 2020
-                </p>
             </div>
+            <p class='copyright-text col-md-12 h-25 mt-3'>
+                Copyright &#169; Janne Kerola 2020
+            </p>
         </div>
     </footer>
         <!-- Optional JavaScript -->

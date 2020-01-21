@@ -1,6 +1,6 @@
 '''routes for the main package'''
 from flask import Blueprint, render_template, url_for, redirect, flash, request
-from flaskblog.forms import ReportForm
+from flaskblog.main.forms import ReportForm
 
 #blueprint for all general routes
 main = Blueprint('main', __name__)
@@ -17,12 +17,6 @@ def profile():
     '''render the porfolio page'''
     report_form = ReportForm()
     return render_template('profile.html', title='Profile', report_form=report_form)
-
-@main.route('/blog', methods=['GET'])
-def blog():
-    '''render the blog page'''
-    report_form = ReportForm()
-    return render_template('blog.html', title='Blog', report_form=report_form)
 
 @main.route('/contact', methods=['GET'])
 def contact():

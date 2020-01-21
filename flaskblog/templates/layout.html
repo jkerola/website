@@ -43,7 +43,7 @@
                             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-info my-2 my-sm-0 mr-4" type="submit">Search</button>
                         </form>
-                        <a class='nav-link' href='#blog.login'>
+                        <a class='nav-link' href="{{ url_for('user.login') }}">
                             <i title='Login' class='material-icons'>input</i>
                         </a>
                     </ul>
@@ -57,8 +57,8 @@
                 <!--display flash messages if any present-->
                 {% with messages = get_flashed_messages(with_categories=True) %}
                     {% if messages %}
-                        {% for message in messages %}
-                            <div class='alert alert-{{category}}'>
+                        {% for category, message in messages %}
+                            <div class='alert alert-{{ category }}'>
                                 {{ message }}
                             </div>
                         {% endfor %}
@@ -117,38 +117,43 @@
                             </div>
                             </div>
                     <!--end modal-->
-                    <a title='Report' href='#'>
+                    <a title='Report' href="#report">
                         <i class='material-icons footer-icons md-48 md-dark' data-toggle="modal" data-target="#reportModal">feedback</i></a>
                         <!-- Modal -->
-                        <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                            <div class="modal-content about">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" >Report</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                    <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content about">
+                            <div class="modal-header">
+                                <h5 class="modal-title" >Report an issue</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        <div class="modal-body">
+                                <form method='POST' action="{{ url_for('main.report') }}" name='report'>
+                                    {{ report_form.hidden_tag() }}
+                                    {{ report_form.csrf_token }}
+                                    <div class='form-group'>
+                                        {{ report_form.title.label(class='form-control-label')}}
+                                        {{ report_form.title(class='form-control')}}
                                     </div>
-                                    <div class="modal-body">
-                                        <form>
-                                            <div class="form-group">
-                                                <label for="report-title" class="col-form-label">Issue:</label>
-                                                <input type="text" class="form-control" id="report-title">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="report-text" class="col-form-label">Description:</label>
-                                                <textarea class="form-control" id="report-text"></textarea>
-                                            </div>
-                                        </form>
+                                    <div class='form-group'>
+                                        {{ report_form.email.label(class='form-control-label')}}
+                                        {{ report_form.email(class='form-control')}}
+                                    </div>
+                                    <div class='form-group'>
+                                        {{ report_form.content.label(class='form-control-label')}}
+                                        {{ report_form.content(class='form-control')}}
                                     </div>
                                     <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Send Report</button>
-                                </div>
-                            </div>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        {{ report_form.submit(class='btn btn-primary')}}
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                        <!--end modal-->
+                    </div>
+                    <!--end modal-->
                 </div>
                 <p class='copyright-text col-md-12 h-25 mt-3'>
                     Copyright &#169; Janne Kerola 2020

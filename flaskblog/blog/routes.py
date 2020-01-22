@@ -1,11 +1,12 @@
 '''routes for the main package'''
 from flask import Blueprint, render_template, url_for, redirect, flash, request
+from flaskblog import storage
 from flaskblog.main.forms import ReportForm
 
-blog = Blueprint('blog', __name__)
+blogging = Blueprint('blog', __name__)
 
-@blog.route('/blog', methods=['GET'])
-def main():
-    '''render the blog page'''
+@blogging.route('/blog', methods=['GET'])
+def blog():
     report_form = ReportForm()
-    return render_template('blog.html', title='Blog', report_form=report_form)
+    posts = storage.get_posts()
+    return render_template('blog.html', title='Blog', posts=posts, report_form=report_form)

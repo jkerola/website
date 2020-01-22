@@ -47,12 +47,12 @@ def create_app(config_class=Config):
     #routes
     #user needs to be placed here to avoid import loops
     #rest are here for consistency
-    from flaskblog.blog.routes import blog
+    from flaskblog.blog.routes import blogging
     from flaskblog.main.routes import main
     from flaskblog.post.routes import post
     from flaskblog.user.routes import user
 
-    app.register_blueprint(blog)
+    app.register_blueprint(blogging)
     app.register_blueprint(main)
     app.register_blueprint(post)
     app.register_blueprint(user)

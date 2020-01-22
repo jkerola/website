@@ -1,7 +1,7 @@
 '''routes for the main package'''
 from flask import Blueprint, render_template, url_for, redirect, flash, request
+from flaskblog import storage
 from flaskblog.main.forms import ReportForm
-
 #blueprint for all general routes
 main = Blueprint('main', __name__)
 
@@ -9,8 +9,9 @@ main = Blueprint('main', __name__)
 @main.route('/home', methods=['GET'])
 def home():
     '''render home page'''
+    posts = storage.get_posts()
     report_form = ReportForm()
-    return render_template('home.html', report_form=report_form)
+    return render_template('home.html', posts=posts, report_form=report_form)
 
 @main.route('/profile', methods=['GET'])
 def profile():

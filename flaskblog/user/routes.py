@@ -20,8 +20,8 @@ def login():
             next_page = request.args.get('next')
             flash('Welcome back.', 'success')
             return redirect(next_page) if next_page else redirect(url_for('main.home'))
-    elif login_form.errors:
-        flash('Please check your credentials.', 'warning')
+        else:
+            flash('Please check your credentials.', 'warning')
     return render_template('login.html', title='Login', login_form=login_form, report_form=report_form)
 
 @user.route('/logout', methods=['GET'])

@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block content %}
+<script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
+<div class='content-section'>
+    <form method='POST' class='form-group'>
+        {{ report_form.hidden_tag() }}
+        <label>Post Title</label> 
+        {% if form == 0 %}
+        <textarea class='form-control' name='title'></textarea>
+        <label>Content</label>
+        <textarea class='form-control' name='content'></textarea>
+        <label>Tags</label>
+        <textarea class='form-control' name='tags'></textarea>
+        {% else %}
+        <textarea class='form-control' name='title'>{{ form['title'] }}</textarea>
+        <label>Content</label>
+        <textarea class='form-control' name='content'>{{ form['content'] }}</textarea>
+        <label>Tags</label>
+        <textarea class='form-control' name='tags'>{{ form['tags'] }}</textarea>
+        {% endif %}
+        <br>
+        <button class='btn btn-primary' name='submit'>Blog</button>
+    </form>
+</div>
+<script>
+    CKEDITOR.replace( 'content' );
+</script>
+{% endblock content %}

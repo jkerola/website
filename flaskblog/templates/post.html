@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<div class='content-section'>
+    <div class='article row'>
+        <a href="{{ url_for('post.find_post', post_id=post.id) }}">
+            <h2 class='article-title'>{{ post.title}}</h2>
+        </a>
+        <p class='article-author ml-4 mt-2 mr-auto'>by Janne K</p>
+        <p class='article-date text-muted mr-4'>{{ post.date_posted.strftime('%b %d, %Y')}}</p>
+    </div>
+    <div class='article-content'>
+        {{ post.content | safe }}
+    </div>
+    <div class='article-footer'>
+        <p class='muted-text article-tag'>
+            <i class='material-icons face muted-text'>local_offer</i>
+            {% for tag in post.tags.split(';') %}
+                {{ tag }}
+            {% endfor %}
+        </p>
+    </div>
+</div>
+{% endblock content %}
+{% block panel %}
+<div class='content-section'>
+    {% if current_user.is_authenticated %}
+        <a class='btn mb-2 btn-primary' href="{{ url_for('post.edit_post', post_id=post.id) }}">Edit Post</a>
+    {% endif %}
+    <div class="dropdown">
+        <button class="btn mb-2 btn-info dropdown-toggle" type="button" id="archivemenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Blog Archives
+        </button>
+        <div class="dropdown-menu" aria-labelledby="archivemenu">
+            <a href="{{ url_for('post.sort_month', month=1) }}" class="dropdown-item">January</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="btn btn-info dropdown-toggle" type="button" id="archivemenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Tags
+        </button>
+        <div class="dropdown-menu" aria-labelledby="archivemenu">
+            <a href="{{ url_for('post.sort_tags', tags='test') }}" class="dropdown-item">test</a>
+            <a href="{{ url_for('post.sort_tags', tags='dnd') }}" class="dropdown-item">dnd</a>
+        </div>
+    </div>
+</div>
+{% endblock panel %}

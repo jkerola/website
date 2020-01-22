@@ -1,12 +1,11 @@
 '''database models module'''
 from datetime import datetime
 from flask import current_app
-from flaskblog import db, login_manager, blogging_engine
+from flaskblog import db, login_manager
 from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 @login_manager.user_loader
-@blogging_engine.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
@@ -23,6 +22,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=False)
 
     #relationships
+    posts = db.relationship('Post', backref='author', lazy=True)
 
     #methods
     #this is for resetting the password, copied from a tutorial project
@@ -41,12 +41,9 @@ class User(db.Model, UserMixin):
         except:
             return None
         return User.query.get(user_id)
-            
-    def __init__(self, user_id):
-        self.id = user_id
 
     def get_name(self):
-        '''return real name for flask-blogging'''
+        '''return real name for blog titles'''
         return self.real_name
 
     def __repr__(self):
@@ -66,3 +63,22 @@ class Report(db.Model):
     def __repr__(self):
         '''self-representation method'''
         return f"Report {self.id}: {self.date_posted} {self.title}"
+
+class Post(db.Model):
+    '''Blog posts'''
+    #attributes
+    id = db.Column(db.Integer(), primary_key=True)
+    title = db.Column(db.String(128), nullable=False)
+    content = db.Column(db.String(10000), nullable=False)
+    tags = db.Column(db.String(256), nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+
+    #relationships
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+        
+    def __repr__(self):
+        return f"Post {self.id}:({self.date_posted} {self.title})"
+
+
+

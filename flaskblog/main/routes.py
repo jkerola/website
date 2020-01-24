@@ -1,7 +1,10 @@
 '''routes for the main package'''
+from datetime import datetime
 from flask import Blueprint, render_template, url_for, redirect, flash, request
+from flaskblog import db
 from flaskblog.main.forms import ReportForm
-from flaskblog.models import Post
+from flaskblog.main.utils import send_report_notification
+from flaskblog.models import Post, Report
 #blueprint for all general routes
 main = Blueprint('main', __name__)
 
@@ -31,6 +34,20 @@ def report():
     '''report contact form for website issues'''
     report_form = ReportForm(request.form)
     if report_form.validate_on_submit():
+        title = report_form.title.data
+        email = report_form.email.data
+        content = report_form.content.data
+        date = datetime.utcnow()
+        report = Report(
+            title = title,
+            email = email,
+            content = content,
+            date_posted = date
+        )
+        send_report_notification(title, content, email, date)
+        db.session.add(report)
+        db.session.commit()
+
         flash('Report submitted succesfully. Thank you!', 'success')
     else:
         flash(f'Report submission failed. Please check your email address.', 'warning')

@@ -3,6 +3,7 @@ import os
 from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 from flaskblog.config import Config
@@ -21,6 +22,9 @@ login_manager = LoginManager()
 login_manager.login_view = 'user.login'
 login_manager.login_message_category = 'info'
 
+#Mail
+mail = Mail()
+
 def create_app(config_class=Config):
     '''creates the app with the given configuration'''
     #app
@@ -32,6 +36,7 @@ def create_app(config_class=Config):
     csfr.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
+    mail.init_app(app)
  
     #routes
     #user needs to be placed here to avoid import loops

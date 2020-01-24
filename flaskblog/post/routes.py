@@ -4,7 +4,7 @@ from flask import Blueprint, render_template, url_for, redirect, flash, request,
 from flask_login import current_user, login_required
 from flaskblog import db
 from flaskblog.main.forms import ReportForm
-from flaskblog.models import Post
+from flaskblog.models import Post, Report
 from sqlalchemy import extract
 
 post = Blueprint('post', __name__)
@@ -102,3 +102,11 @@ def edit_post(post_id):
             return redirect(url_for('edit_post', post_id=post.id))
     return render_template('editor.html', form=post, report_form=report_form)
 
+@post.route('/reports')
+@login_required
+def reports():
+    report_form = ReportForm()
+    page = request.args.get('page', 1, type=int)
+    reports = Report.query.order_by(Report.date_posted.desc())\
+            .paginate(per_page=5, page=page)
+    return render_template('report.html', report_form=report_form, posts=reports)

@@ -25,17 +25,21 @@
 {% block panel %}
 <div class='content-section'>
     {% if current_user.is_authenticated %}
-        <a class='btn mb-2 btn-primary' href="{{ url_for('post.edit_post', post_id=post.id) }}">Edit Post</a>
+        <a class='btn btn-primary' href="{{ url_for('post.edit_post', post_id=post.id) }}">Edit Post</a>
     {% endif %}
-    <div class="dropdown">
-        <button class="btn mb-2 btn-info dropdown-toggle" type="button" id="archivemenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Blog Archives
+    <div class='btn-group mr-3'>
+        <a href='#' class='btn btn-primary'>Subscribe</a>
+    </div>
+    <div class="dropdown btn-group">
+        <button class="btn btn-info dropdown-toggle" type="button" id="archivemenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Archive
         </button>
         <div class="dropdown-menu" aria-labelledby="archivemenu">
+            <h6 class='dropdown-header'>2020</h6>
             <a href="{{ url_for('post.sort_month', month=1) }}" class="dropdown-item">January</a>
         </div>
     </div>
-    <div class="dropdown">
+    <div class="dropdown btn-group mr-auto">
         <button class="btn btn-info dropdown-toggle" type="button" id="archivemenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Tags
         </button>
@@ -43,6 +47,9 @@
             <a href="{{ url_for('post.sort_tags', tags='test') }}" class="dropdown-item">test</a>
             <a href="{{ url_for('post.sort_tags', tags='dnd') }}" class="dropdown-item">dnd</a>
         </div>
+    </div>
+    <div class='btn-group'>
+        <a href="{{ url_for('post.blog') }}" class='btn btn-info'>Clear tags</a>
     </div>
 </div>
 {% endblock panel %}

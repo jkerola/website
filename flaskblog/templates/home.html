@@ -3,7 +3,9 @@
     {% for post in posts.items %}
     <div class='content-section'>
         <div class='article row'>
-            <h2 class='article-title'>{{ post.title}}</h2>
+            <a href="{{ url_for('post.find_post', post_id=post.id) }}">
+                <h2 class='article-title'>{{ post.title }}</h2>
+            </a>
             <p class='article-author ml-4 mt-2 mr-auto'>by Janne K</p>
             <p class='article-date text-muted'>{{ post.date_posted.strftime('%b %d, %Y')}}</p>
         </div>

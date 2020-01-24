@@ -11,6 +11,8 @@ user = Blueprint('user', __name__)
 @user.route('/login', methods=['GET', 'POST'])
 def login():
     '''Checks given credentials against database, logs user in if correct.'''
+    if current_user.is_authenticated:
+        return redirect(url_for('main.home'))
     login_form = LoginForm()
     report_form = ReportForm()
     if login_form.validate_on_submit():
@@ -26,11 +28,13 @@ def login():
 
 @user.route('/logout', methods=['GET'])
 def logout():
+    '''log the current user out'''
     logout_user()
     return redirect(url_for('main.home'))
 
 @user.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
+    '''account details page for updating info'''
     report_form = ReportForm()
     return render_template('account.html', title='Account Settings', report_form=report_form)

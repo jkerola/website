@@ -67,6 +67,9 @@
     </div>
     <main role='main' class='container-fluid'>
         <div class='row'>
+            <div class='offset-md-2 col-md-auto'>
+                {% block panel %}{% endblock panel %}
+            </div>
             <div class='col-md-8 offset-md-2'>
                 <!--display flash messages if any present-->
                 {% with messages = get_flashed_messages(with_categories=True) %}
@@ -81,9 +84,6 @@
                 {% block content %}
                 {% endblock content %}
             </div>
-            <div class='mr-1 col-md-auto'>
-                {% block panel %}{% endblock panel %}
-            </div>
         </div>
     </main>
     <!--links to github, linked in and copyright-->
@@ -94,12 +94,15 @@
                 <a title='Github Profile' href='https://github.com/jkerola'>
                     <img src="{{ url_for('static', filename='images/github.svg') }}"
                         class='img-responsive footer-img mr-4' alt='github logo'></a>
-                    <a title='Linked.in Profile' href='#'>
+                    <a title='Linked.in Profile' href='https://www.linkedin.com/in/janne-kerola-219b1a1a0'>
                         <img src="{{ url_for('static', filename='images/linkedin_bug.png') }}"
                             class='footer-img img-responsive' alt='linked.in logo'>
                     </a>
+                    <p class='copyright-text col-md-12 h-25 mt-3'>
+                        Copyright &#169; 2020 Janne Kerola
+                    </p>
                 </div>
-                <div class=' col-1 offset-md-1 align-self-end mr-auto help-icons'>
+                <div class=' col-1 offset-md-1 align-self-start mr-auto help-icons'>
                     <a href='#about' title='About' data-toggle="modal" data-target="#aboutModal">
                         <i class='material-icons footer-icons md-48 md-dark'>help</i></button></a>
                             <!-- Modal -->
@@ -120,7 +123,7 @@
                                     <h5 class='about'>How did you make it?</h5>
                                     <p class='about'>
                                         This website was built with Flask.<br>
-                                        Content made with Summernote is stored in an SQLite database using SQLAlchemy.
+                                        Content made with CKEdit 4 is stored in an SQLite database using SQLAlchemy.
                                         The frontend is bog-standard HTML and CSS, with styles and minimal javascript from Bootstrap.
                                         Served from a DigitalOcean droplet straight to your browser.
                                         <br><br>
@@ -173,9 +176,6 @@
                     <!--end modal-->
                 </div>
             </div>
-            <p class='copyright-text col-md-12 h-25 mt-3'>
-                Copyright &#169; Janne Kerola 2020
-            </p>
         </div>
     </footer>
     <!-- Optional JavaScript -->

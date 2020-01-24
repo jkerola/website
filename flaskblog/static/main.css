@@ -16,6 +16,10 @@ h1 h2 h3 h4 h5 h6 {
 .about-background {
     background:#00A8E8;
 }
+.blog-page {
+    margin-top: 16px;
+    text-align: center;
+}
 .article {
     color: #00171F;
     border-bottom: 1px solid #007EA7;
@@ -66,13 +70,14 @@ h1 h2 h3 h4 h5 h6 {
 .site-header .navbar-nav .nav-link.active {
     background: lightblue;
 }
+.subscribe {
 
+}
 .content-section {
     background: #ffffff;
     padding: 10px 20px;
     border: 1px solid #ffffff;
     border-radius: 3px;
-    margin-bottom: 20px;
     margin-top: 20px;
 }
 .footer-body {
@@ -81,14 +86,16 @@ h1 h2 h3 h4 h5 h6 {
     border: 1px solid #00171F;
     border-radius: 3px; 
     padding-top: 16px;
+    margin-top: 32px;
     background-color: #00171F;
     text-align: center;
     color: #B7CECE;
 }
+
 .footer-img {
     padding-top: 10px;
-    max-width: 80px;
-    max-height: 80px;
+    max-width: 64px;
+    max-height: 64px;
     min-width: 32px;
 }
 .footer-icons {
@@ -132,6 +139,7 @@ https://stackoverflow.com/questions/20003139/how-to-add-a-tooltip-for-an-icon-in
     padding-bottom: 16px;
     color: rgb(205, 225, 233);
     text-align: center;
+    white-space: nowrap;
 }
 .face {
     position: relative;

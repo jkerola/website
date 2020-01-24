@@ -3,11 +3,15 @@
 {% for post in posts.items %}
 <div class='content-section'>
     <div class='article row'>
-        <a href="{{ url_for('post.find_post', post_id=post.id) }}">
-            <h2 class='article-title'>{{ post.title}}</h2>
-        </a>
-        <p class='article-author ml-4 mt-2 mr-auto'>by Janne K</p>
-        <p class='article-date text-muted mr-4'>{{ post.date_posted.strftime('%b %d, %Y')}}</p>
+        <div class='col-8 border align-self-center mr-auto'>
+            <a href="{{ url_for('post.find_post', post_id=post.id) }}">
+                <h3 class='article-title'>{{ post.title }}</h3>
+            </a>
+        </div>
+        <div class='text-right col-md-auto'>
+            <p class='article-author mt-2'>{{ post.author.real_name }}</p>
+            <p class='article-date text-muted'>{{ post.date_posted.strftime('%b %d, %Y')}}</p>
+        </div>
     </div>
     <div class='article-content'>
         {{ post.content | safe }}
@@ -24,26 +28,30 @@
 {% endfor %}
 {% for page_num in posts.iter_pages(left_edge= 1, left_current=1, right_current=2) %}
     {% if page_num %}
-        <a class='btn btn-info mb-4' href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+        <a class='btn btn-primary blog-page mb-4' href="{{ url_for('post.blog', page=page_num) }}">{{ page_num }}</a>
     {% else %}
-        <a class='btn btn-outline-info mb-4' href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+        <a class='btn btn-outline-primary  blog-page mb-4' href="{{ url_for('post.blog', page=page_num) }}">{{ page_num }}</a>
     {% endif %}
 {% endfor %}
 {% endblock content %}
 {% block panel %}
     <div class='content-section'>
         {% if current_user.is_authenticated %}
-            <a class='btn mb-2 btn-primary' href="{{ url_for('post.editor') }}">New Post</a>
+        <a class='btn btn-primary' href="{{ url_for('post.editor') }}">New Post</a>
         {% endif %}
-        <div class="dropdown">
-            <button class="btn mb-2 btn-info dropdown-toggle" type="button" id="archivemenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Blog Archives
+        <div class='btn-group mr-3'>
+            <a href='#' class='btn btn-primary'>Subscribe</a>
+        </div>
+        <div class="dropdown btn-group">
+            <button class="btn btn-info dropdown-toggle" type="button" id="archivemenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Archive
             </button>
             <div class="dropdown-menu" aria-labelledby="archivemenu">
+                <h6 class='dropdown-header'>2020</h6>
                 <a href="{{ url_for('post.sort_month', month=1) }}" class="dropdown-item">January</a>
             </div>
         </div>
-        <div class="dropdown">
+        <div class="dropdown btn-group mr-auto">
             <button class="btn btn-info dropdown-toggle" type="button" id="archivemenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Tags
             </button>
@@ -51,6 +59,9 @@
                 <a href="{{ url_for('post.sort_tags', tags='test') }}" class="dropdown-item">test</a>
                 <a href="{{ url_for('post.sort_tags', tags='dnd') }}" class="dropdown-item">dnd</a>
             </div>
+        </div>
+        <div class='btn-group'>
+            <a href="{{ url_for('post.blog') }}" class='btn btn-info'>Clear tags</a>
         </div>
     </div>
 {% endblock panel %}

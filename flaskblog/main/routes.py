@@ -28,6 +28,7 @@ def contact():
 
 @main.route('/report', methods=['GET', 'POST'])
 def report():
+    '''report contact form for website issues'''
     report_form = ReportForm(request.form)
     if report_form.validate_on_submit():
         flash('Report submitted succesfully. Thank you!', 'success')

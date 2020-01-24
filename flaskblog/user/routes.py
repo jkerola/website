@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, flash, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from flaskblog import db, bcrypt
 from flaskblog.main.forms import ReportForm
-from flaskblog.user.forms import LoginForm
+from flaskblog.user.forms import LoginForm, UpdateInfoForm
 from flaskblog.models import User
 
 user = Blueprint('user', __name__)
@@ -30,11 +30,37 @@ def login():
 def logout():
     '''log the current user out'''
     logout_user()
-    return redirect(url_for('main.home'))
+    return redirect(url_for('user.login'))
 
 @user.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
     '''account details page for updating info'''
     report_form = ReportForm()
-    return render_template('account.html', title='Account Settings', report_form=report_form)
+    update_form = UpdateInfoForm()
+    user = current_user
+
+    if update_form.validate_on_submit():
+        if bcrypt.check_password_hash(user.password, update_form.current_pass.data):
+            user.username = update_form.username.data
+            user.real_name = update_form.real_name.data
+            user.email_personal = update_form.email_personal.data
+            user.email_company = update_form.email_company.data
+            db.session.commit()
+            flash('Update successful.', 'success')
+            return redirect(url_for('main.home'))
+        else:
+            flash('Please check your credentials.', 'warning')
+            return redirect(url_for('user.account'))
+
+    elif request.method == 'GET':
+        update_form.username.data = user.username
+        update_form.real_name.data = user.real_name
+        update_form.email_personal.data = user.email_personal
+        update_form.email_company.data = user.email_company
+
+    else:
+        flash('Please check that no fields are empty.', 'warning')
+          
+    return render_template('account.html', title='Account Settings', update_form=update_form, report_form=report_form)
+

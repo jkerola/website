@@ -1,3 +1,32 @@
 {% extends 'layout.html' %}
 {% block content %}
+<div class='content-section'>
+    <form method='POST' name='update'>
+        {{ update_form.hidden_tag() }}
+        <fieldset class='form-group'>
+            <legend>Account Information</legend>
+            <div class='mb-2'>
+                {{ update_form.current_pass.label(class='form-control-label') }}
+                {{ update_form.current_pass(class='form-control') }}
+            </div>
+            <div>
+                {{ update_form.username.label(class='form-control-label') }}
+                {{ update_form.username(class='form-control') }}
+            </div>
+            <div class='mb-2'>
+                {{ update_form.real_name.label(class='form-control-label') }}
+                {{ update_form.real_name(class='form-control') }}
+            </div>
+            <div class='mb-2'>
+                {{ update_form.email_personal.label(class='form-control-label') }}
+                {{ update_form.email_personal(class='form-control') }}
+            </div>
+            <div class='mb-2'>
+                {{ update_form.email_company.label(class='form-control-label') }}
+                {{ update_form.email_company(class='form-control') }}
+            </div>
+            {{ update_form.submit(class='btn btn-primary') }}
+        </fieldset>
+    </form>
+</div>
 {% endblock content %}

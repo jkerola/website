@@ -3,7 +3,7 @@
 {% for post in posts.items %}
 <div class='content-section'>
     <div class='article row'>
-        <div class='col-8 border align-self-center mr-auto'>
+        <div class='col-8 align-self-center mr-auto'>
             <a href="{{ url_for('post.find_post', post_id=post.id) }}">
                 <h3 class='article-title'>{{ post.title }}</h3>
             </a>
@@ -39,25 +39,28 @@
         {% if current_user.is_authenticated %}
         <a class='btn btn-primary' href="{{ url_for('post.editor') }}">New Post</a>
         {% endif %}
-        <div class='btn-group mr-3'>
-            <a href='#' class='btn btn-primary'>Subscribe</a>
-        </div>
+        <!-- Disable RSS feed subscribe for now
+            <div class='btn-group mr-3'>
+                <a href='#' class='btn btn-primary'>Subscribe</a>
+            </div>
+        -->
         <div class="dropdown btn-group">
             <button class="btn btn-info dropdown-toggle" type="button" id="archivemenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Archive
             </button>
             <div class="dropdown-menu" aria-labelledby="archivemenu">
                 <h6 class='dropdown-header'>2020</h6>
-                <a href="{{ url_for('post.sort_month', month=1) }}" class="dropdown-item">January</a>
+                <a href="{{ url_for('post.sort_by_tags', tags=request.args.get('tags'), month=1) }}" class="checkbox dropdown-item">January</a>
             </div>
         </div>
         <div class="dropdown btn-group mr-auto">
             <button class="btn btn-info dropdown-toggle" type="button" id="archivemenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Tags
             </button>
+            
             <div class="dropdown-menu" aria-labelledby="archivemenu">
-                <a href="{{ url_for('post.sort_tags', tags='test') }}" class="dropdown-item">test</a>
-                <a href="{{ url_for('post.sort_tags', tags='dnd') }}" class="dropdown-item">dnd</a>
+                <a href="{{ url_for('post.sort_by_tags', month=request.args.get('month'), tags='test') }}" class="dropdown-item">test</a>
+                <a href="{{ url_for('post.sort_by_tags', month=request.args.get('month'), tags='dnd') }}" class="dropdown-item">dnd</a>
             </div>
         </div>
         <div class='btn-group'>

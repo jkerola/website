@@ -41,34 +41,47 @@ def editor():
             redirect(url_for('post.blog', form=form))
     return render_template('editor.html', form=form, report_form=report_form)
 
-@post.route('/blog/month/<int:month>')
-def sort_month(month):
-    '''sorts posts by given month, currently only january...'''
-    report_form = ReportForm()
-    page = request.args.get('page', 1, type=int)
-    posts = Post.query.filter(extract('month', Post.date_posted)==month)\
-            .order_by(Post.date_posted.desc())\
-            .paginate(per_page=3, page=page)
-
-    return render_template('blog.html', report_form=report_form, page=page, posts=posts)
-
-@post.route('/blog/tags/<string:tags>')
-def sort_tags(tags):
+@post.route('/blog/filter', methods=['GET'])
+def sort_by_tags():
+    '''filter blog posts by given tag query parameters'''
     '''sort posts by given tag'''
     report_form = ReportForm()
     page = request.args.get('page', 1, type=int)
-    posts = Post.query.filter(Post.tags.contains(tags))\
-        .order_by(Post.date_posted.desc())\
-        .paginate(per_page=3, page=page)
-    
-    return render_template('blog.html', report_form=report_form, posts=posts)
+    month = request.args.get('month', 0, type=int)
+    tags = request.args.get('tags', '', type=str)
 
-@post.route('/blog/post/<int:post_id>')
+    if month and tags:
+        posts = Post.query.filter(extract('month', Post.date_posted)==month)\
+            .filter(Post.tags.contains(tags))\
+            .order_by(Post.date_posted.desc())\
+            .paginate(per_page=3, page=page)
+        return render_template('blog.html', report_form=report_form, page=page, posts=posts)
+
+    elif tags and month == 0:
+        posts = Post.query.filter(Post.tags.contains(tags))\
+            .order_by(Post.date_posted.desc())\
+            .paginate(per_page=3, page=page)
+        return render_template('blog.html', report_form=report_form, posts=posts)
+    
+    elif month and tags == '':
+        posts = Post.query.filter(extract('month', Post.date_posted)==month)\
+            .order_by(Post.date_posted.desc())\
+            .paginate(per_page=3, page=page)
+        return render_template('blog.html', report_form=report_form, page=page, posts=posts)
+    else:
+        posts = Post.query.order_by(Post.date_posted.desc()).paginate(per_page=3, page=page)
+        return render_template('blog.html', report_form=report_form, page=page, posts=posts)
+
+
+@post.route('/blog/post/<int:post_id>', methods=['GET'])
 def find_post(post_id):
     '''find a specific post for viewing'''
     report_form = ReportForm()
     post = Post.query.get(post_id)
-    return render_template('post.html', post=post, report_form=report_form)
+    previous = request.referrer
+    if previous == None:
+        previous = url_for('main.home')
+    return render_template('post.html', post=post, previous=previous, report_form=report_form)
 
 @post.route('/blog/update/<int:post_id>', methods=['POST', 'GET'])
 def edit_post(post_id):
@@ -88,3 +101,4 @@ def edit_post(post_id):
             flash('Please check your input.', 'warning')
             return redirect(url_for('edit_post', post_id=post.id))
     return render_template('editor.html', form=post, report_form=report_form)
+

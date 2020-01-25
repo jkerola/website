@@ -6,16 +6,16 @@
 {% for post in posts.items %}
 <div class='content-section'>
     <div class='article row'>
-        <div class='col-8 align-self-center mr-auto'>
+        <div class='article-title-container'>
             <a title='Read more'href="{{ url_for('post.find_post', post_id=post.id) }}">
                 <h3 class='article-title'>{{ post.title }}</h3>
             </a>
         </div>
-        <div class='text-right col-md-auto'>
+        <div class='article-meta-container'>
             <a title='Author profile' href="{{ url_for('main.profile') }}">
-                <p class='article-author mt-2'>{{ post.author.real_name }}</p>
+                <div class='article-author mt-2'>{{ post.author.real_name }}</div>
             </a>
-            <p class='article-date text-muted'>{{ post.date_posted.strftime('%b %d, %Y')}}</p>
+                <div class='article-date text-muted'>{{ post.date_posted.strftime('%b %d, %Y')}}</div>
         </div>
     </div>
     <div class='article-content'>

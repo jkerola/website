@@ -93,56 +93,21 @@
     <!--links to github, linked in and copyright-->
     <footer role='footer' class='container-fluid footer-body'>
         <div class='row'>
-            <div class='col-1 mr-auto'></div>
-            <div class='col-6 offset-md-1'>
+            <div class='footer-img-container'>
                 <a title='Github Profile' href='https://github.com/jkerola'>
                     <img src="{{ url_for('static', filename='images/github.svg') }}"
-                        class='img-responsive footer-img mr-4' alt='github logo'></a>
+                        class='img-responsive footer-img' alt='github logo'></a>
                     <a title='Linked.in Profile' href='https://www.linkedin.com/in/janne-kerola-219b1a1a0'>
                         <img src="{{ url_for('static', filename='images/linkedin_bug.png') }}"
                             class='footer-img img-responsive' alt='linked.in logo'>
                     </a>
-                    <p class='copyright-text col-md-12 h-25 mt-3'>
+                    <p class='copyright-text'>
                         Copyright &#169; 2020 Janne Kerola
                     </p>
                 </div>
-                <div class=' col-1 offset-md-1 align-self-start mr-auto help-icons'>
-                    <a href='#about' title='About' data-toggle="modal" data-target="#aboutModal">
-                        <i class='material-icons footer-icons md-48 md-dark'>help</i></button></a>
-                            <!-- Modal -->
-                            <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                <div class="modal-header">
-                                    <h3 class='about'>About</h3>
-                                    <button title='Close' type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body pl-2 pr-2">
-                                    <h5 class='about'>What is this site?</h5>
-                                    <p class='about'>
-                                        This is the personal website and blog of yours truly.
-                                    </p>
-                                    <h5 class='about'>How did you make it?</h5>
-                                    <p class='about'>
-                                        This website was built with Flask.<br>
-                                        Content made with CKEdit 4 is stored in an SQLite database using SQLAlchemy.
-                                        The frontend is bog-standard HTML and CSS, with styles and minimal javascript from Bootstrap.
-                                        Served from a DigitalOcean droplet straight to your browser.
-                                        <br><br>
-                                        If you have any questions, feel free to 
-                                        <a href="{{ url_for('main.contact') }}">message me here!</a>
-                                </div>
-                                <div class="modal-footer">
-                                    <button title='Close' type="button" class="btn btn-outline-info" data-dismiss="modal">Close</button>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                    <!--end modal-->
+                <div class='footer-img-container footer-smaller'>
                     <a title='Report' href="#report">
-                        <i class='material-icons footer-icons md-48 md-dark' data-toggle="modal" data-target="#reportModal">feedback</i></a>
+                        <i class='material-icons footer-img footer-icons md-48 md-dark' data-toggle="modal" data-target="#reportModal">report</i></a>
                         <!-- Modal -->
                     <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -177,8 +142,42 @@
                             </div>
                         </div>
                     </div>
-                    <!--end modal-->
                 </div>
+                <!--end modal-->
+                <a href='#about' title='About' data-toggle="modal" data-target="#aboutModal">
+                    <i class='material-icons footer-img footer-icons md-48 md-dark'>help</i></button></a>
+                        <!-- Modal -->
+                        <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class='about'>About</h3>
+                                <button title='Close' type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body pl-2 pr-2">
+                                <h5 class='about'>What is this site?</h5>
+                                <p class='about'>
+                                    This is the personal website and blog of yours truly.
+                                </p>
+                                <h5 class='about'>How did you make it?</h5>
+                                <p class='about'>
+                                    This website was built with Flask.<br>
+                                    Content made with CKEdit 4 is stored in an SQLite database using SQLAlchemy.
+                                    The frontend is bog-standard HTML and CSS, with styles and minimal javascript from Bootstrap.
+                                    Served from a DigitalOcean droplet straight to your browser.
+                                    <br><br>
+                                    If you have any questions, feel free to 
+                                    <a href="{{ url_for('main.contact') }}">message me here!</a>
+                            </div>
+                            <div class="modal-footer">
+                                <button title='Close' type="button" class="btn btn-outline-info" data-dismiss="modal">Close</button>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                <!--end modal-->
             </div>
         </div>
     </footer>

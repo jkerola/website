@@ -28,7 +28,7 @@
     <div class='container-fluid border navbar-container'>
         <header role='header' class='site-header'>
             <nav class="navbar navbar-expand-xl navbar-light">
-                <a title='JKerola.com' class="navbar-brand offset-md-1 col-r-2" href="/"><i class='material-icons face'>face</i>Janne Kerola</a>
+                <a title='JKerola.com' class="navbar-brand brand col-r-2" href="/"><i class='material-icons face'>face</i>Janne Kerola</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -49,18 +49,18 @@
                             -->
                         </form>
                         {% if current_user.is_authenticated %}
-                            <a class='nav-link' href="{{ url_for('post.reports') }}">
-                                <i title='Login' class='material-icons face'>report</i>Reports
+                            <a title='Reports' class='nav-link' href="{{ url_for('post.reports') }}">
+                                <i class='material-icons face'>report</i>Reports
                             </a>
-                            <a class='nav-link' href="{{ url_for('user.account') }}">
-                                <i title='Login' class='material-icons face'>account_box</i>Account
+                            <a title='Account' class='nav-link' href="{{ url_for('user.account') }}">
+                                <i class='material-icons face'>account_box</i>Account
                             </a>
-                            <a class='nav-link' href="{{ url_for('user.logout') }}">
-                                <i title='Login' class='material-icons face'>power_settings_new</i>Log Out
+                            <a title='Logout' class='nav-link' href="{{ url_for('user.logout') }}">
+                                <i class='material-icons face'>power_settings_new</i>Log Out
                             </a>
                         {% else %}
-                            <a class='nav-link' href="{{ url_for('user.login') }}">
-                                <i title='Login' class='material-icons face'>input</i>Login
+                            <a title='Login' class='nav-link' href="{{ url_for('user.login') }}">
+                                <i class='material-icons face'>input</i>Login
                             </a>
                         {% endif %}
                     </ul>
@@ -70,10 +70,11 @@
     </div>
     <main role='main' class='container-fluid'>
         <div class='row'>
-            <div class='offset-md-2 col-md-auto'>
+            {% block banner %}{% endblock banner %}
+            <div class='col-md-auto offset-md-1'>
                 {% block panel %}{% endblock panel %}
             </div>
-            <div class='col-md-8 offset-md-2'>
+            <div class='col-md-10 offset-md-1'>
                 <!--display flash messages if any present-->
                 {% with messages = get_flashed_messages(with_categories=True) %}
                     {% if messages %}

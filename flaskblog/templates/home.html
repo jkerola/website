@@ -1,24 +1,35 @@
 {% extends 'layout.html' %}
+{% block banner %}
+<div class='overflow-hidden'>
+    <img class='banner-img' src="{{ url_for('static', filename='images/home_banner.jpg') }}">
+    <div class='banner-text col-md-12'>My name is Janne Kerola and I'm a web developer.</div>
+</div>
+{% endblock banner %}
 {% block content %}
+<div class='home-posts'>
+    <h4 class='recent-posts'>Recent posts:</h4>
+</div class='home'>
     {% for post in posts.items %}
     <div class='content-section'>
         <div class='article row'>
-            <div class='col-8 align-self-center mr-auto'>
-                <a href="{{ url_for('post.find_post', post_id=post.id) }}">
+            <div class='align-self-center col-auto mr-auto'>
+                <a title='Read more' href="{{ url_for('post.find_post', post_id=post.id) }}">
                     <h3 class='article-title'>{{ post.title }}</h3>
                 </a>
             </div>
-            <div class='text-right col-md-auto'>
-                <p class='article-author mt-2'>{{ post.author.real_name }}</p>
+            <div class='col-auto'>
+                <a href="{{ url_for('main.profile') }}">
+                    <p class='article-author mt-2'>{{ post.author.real_name }}</p>
+                </a>
                 <p class='article-date text-muted'>{{ post.date_posted.strftime('%b %d, %Y')}}</p>
             </div>
         </div>
-        <div class='article-content'>
+        <div class='article-content overflow-hidden ellipsis'>
             {{ post.content | safe }}
         </div>
         <div class='article-footer'>
             <p class='muted-text article-tag'>
-                <i class='material-icons face muted-text'>local_offer</i>
+                <i title='Tags' class='material-icons face muted-text'>local_offer</i>
                 {% for tag in post.tags.split(';') %}
                     {{ tag }}
                 {% endfor %}

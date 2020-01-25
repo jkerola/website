@@ -57,7 +57,7 @@ class Report(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(128), nullable=False)
     email = db.Column(db.String(128), nullable=False)
-    content = db.Column(db.String(1024), nullable=False)
+    content = db.Column(db.String(5000), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     def __repr__(self):
@@ -68,8 +68,8 @@ class Post(db.Model):
     '''Blog posts'''
     #attributes
     id = db.Column(db.Integer(), primary_key=True)
-    title = db.Column(db.String(128), nullable=False)
-    content = db.Column(db.String(10000), nullable=False)
+    title = db.Column(db.String(256), nullable=False)
+    content = db.Column(db.String(20000), nullable=False)
     tags = db.Column(db.String(256), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 

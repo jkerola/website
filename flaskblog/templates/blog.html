@@ -4,12 +4,14 @@
 <div class='content-section'>
     <div class='article row'>
         <div class='col-8 align-self-center mr-auto'>
-            <a href="{{ url_for('post.find_post', post_id=post.id) }}">
+            <a title='Read more'href="{{ url_for('post.find_post', post_id=post.id) }}">
                 <h3 class='article-title'>{{ post.title }}</h3>
             </a>
         </div>
         <div class='text-right col-md-auto'>
-            <p class='article-author mt-2'>{{ post.author.real_name }}</p>
+            <a title='Author profile' href="{{ url_for('main.profile') }}">
+                <p class='article-author mt-2'>{{ post.author.real_name }}</p>
+            </a>
             <p class='article-date text-muted'>{{ post.date_posted.strftime('%b %d, %Y')}}</p>
         </div>
     </div>
@@ -45,26 +47,25 @@
             </div>
         -->
         <div class="dropdown btn-group">
-            <button class="btn btn-info dropdown-toggle" type="button" id="archivemenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Archive
+            <button title='Sort by date' class="btn btn-info dropdown-toggle" type="button" id="archivemenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Date
             </button>
             <div class="dropdown-menu" aria-labelledby="archivemenu">
                 <h6 class='dropdown-header'>2020</h6>
-                <a href="{{ url_for('post.sort_by_tags', tags=request.args.get('tags'), month=1) }}" class="checkbox dropdown-item">January</a>
+                <a title='January' href="{{ url_for('post.sort_by_tags', tags=request.args.get('tags'), month=1) }}" class="checkbox dropdown-item">January</a>
             </div>
         </div>
-        <div class="dropdown btn-group mr-auto">
-            <button class="btn btn-info dropdown-toggle" type="button" id="archivemenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="dropdown btn-group">
+            <button  title='Sort by tag' class="btn btn-info dropdown-toggle" type="button" id="archivemenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Tags
             </button>
-            
             <div class="dropdown-menu" aria-labelledby="archivemenu">
-                <a href="{{ url_for('post.sort_by_tags', month=request.args.get('month'), tags='test') }}" class="dropdown-item">test</a>
-                <a href="{{ url_for('post.sort_by_tags', month=request.args.get('month'), tags='dnd') }}" class="dropdown-item">dnd</a>
+                <a title='test' href="{{ url_for('post.sort_by_tags', month=request.args.get('month'), tags='test') }}" class="dropdown-item">test</a>
+                <a title='dnd' href="{{ url_for('post.sort_by_tags', month=request.args.get('month'), tags='dnd') }}" class="dropdown-item">dnd</a>
             </div>
         </div>
         <div class='btn-group'>
-            <a href="{{ url_for('post.blog') }}" class='btn btn-info'>Clear tags</a>
+            <a title='Clear all tags' href="{{ url_for('post.blog') }}" class='btn btn-info ml-2'>Clear tags</a>
         </div>
     </div>
 {% endblock panel %}

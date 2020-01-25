@@ -18,3 +18,4 @@ def send_report_notification(title, content, email, date):
 
 Please check on the issue ASAP.'''
     mail.send(msg)
+    

@@ -1,4 +1,7 @@
 {% extends 'layout.html' %}
+{% block banner %}
+    <img class='banner-img' src="{{ url_for('static', filename='images/home_banner.jpg') }}">
+{% endblock banner %}
 {% block content %}
 <div>
     <div class='content-section'>
@@ -9,25 +12,28 @@
             <br>
             You can also contact me via the contact form below.
         </div>
+    </div>
+    <div class='content-section'>
+        <legend>Contact Form</legend>
         <form href="{{ url_for('main.contact') }}" method='POST'>
             {{ contact_form.hidden_tag() }}
             <fieldset class='form-group mt-2'>
-                <div class='form-group'>
+                <div title='Name' class='form-group'>
                     {{ contact_form.name.label(class='form-control-label')}}
                     {{ contact_form.name(class='form-control')}}
                 </div>
-                <div class='form-group'>
+                <div title='Email' class='form-group'>
                     {{ contact_form.email.label(class='form-control-label')}}
                     {{ contact_form.email(class='form-control')}}
                 </div>
-                <div class='form-group'>
+                <div title='Subject' class='form-group'>
                     {{ contact_form.title.label(class='form-control-label')}}
                     {{ contact_form.title(class='form-control')}}
                 </div>
-                <div class='form-group'>
+                <div title='Message' class='form-group'>
                     {{ contact_form.content.label(class='form-control-label')}}
                     {{ contact_form.content(class='form-control')}}
-                </div>
+                </div title='Send message'>
                 {{ contact_form.submit(class='btn btn-primary') }}
             </fieldset>
         </form>

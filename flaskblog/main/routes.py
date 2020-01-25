@@ -1,4 +1,4 @@
-'''routes for the main package'''
+'''Routes for the main package.'''
 from datetime import datetime
 from flask import Blueprint, render_template, url_for, redirect, flash, request
 from flaskblog import db
@@ -11,7 +11,7 @@ main = Blueprint('main', __name__)
 @main.route('/')
 @main.route('/home', methods=['GET'])
 def home():
-    '''render home page'''
+    '''Render home page.'''
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(per_page=2, page=page)
     report_form = ReportForm()
@@ -19,13 +19,13 @@ def home():
 
 @main.route('/profile', methods=['GET'])
 def profile():
-    '''render the porfolio page'''
+    '''Render the porfolio page.'''
     report_form = ReportForm()
     return render_template('profile.html', title='Profile', report_form=report_form)
 
 @main.route('/contact', methods=['GET', 'POST'])
 def contact():
-    '''render the contact report_form page'''
+    '''Render the contact page, display contact form.'''
     report_form = ReportForm()
     contact_form = ContactForm()
     if contact_form.validate_on_submit():
@@ -40,7 +40,7 @@ def contact():
 
 @main.route('/report', methods=['GET', 'POST'])
 def report():
-    '''report contact form for website issues'''
+    '''Report contact form for website issues.'''
     report_form = ReportForm(request.form)
     if report_form.validate_on_submit():
         title = report_form.title.data
@@ -56,7 +56,6 @@ def report():
         send_report_notification(title, content, email, date)
         db.session.add(report)
         db.session.commit()
-
         flash('Report submitted succesfully. Thank you!', 'success')
     else:
         flash(f'Report submission failed. Please check your email address.', 'warning')

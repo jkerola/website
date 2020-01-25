@@ -31,7 +31,32 @@
     <a title='Go back' class='btn btn-info' href="{{ previous }}">Back</a>
     {% if current_user.is_authenticated %}
         <a class='btn btn-primary' href="{{ url_for('post.edit_post', post_id=post.id) }}">Edit Post</a>
-    {% endif %}
+            <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+            Delete Post
+        </button>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="deleteModal">Deleting Post</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                Are you sure?
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <a href="{{ url_for('post.delete_post', post_id=post.id) }}" type="button" class="btn btn-primary">Yes</a>
+                </div>
+            </div>
+            </div>
+        </div>
+        {% endif %}
     <!-- disabled changing tags on the post page.
     <div class='btn-group ml-3 mr-3'>
         <a href='#' class='btn btn-primary'>Subscribe</a>

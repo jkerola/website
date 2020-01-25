@@ -84,6 +84,7 @@ def find_post(post_id):
     return render_template('post.html', post=post, previous=previous, report_form=report_form)
 
 @post.route('/blog/update/<int:post_id>', methods=['POST', 'GET'])
+@login_required
 def edit_post(post_id):
     '''edit an existing post'''
     report_form = ReportForm()
@@ -102,6 +103,17 @@ def edit_post(post_id):
             return redirect(url_for('edit_post', post_id=post.id))
     return render_template('editor.html', form=post, report_form=report_form)
 
+@post.route('/blog/delete/<int:post_id>', methods=['GET'])
+@login_required
+def delete_post(post_id):
+    '''delete an existing post'''
+    if request.method == 'GET':
+        post = Post.query.get(post_id)
+        db.session.delete(post)
+        db.session.commit()
+        flash('Post deleted', 'success')
+        return redirect(url_for('post.blog'))
+
 @post.route('/reports')
 @login_required
 def reports():
@@ -110,3 +122,4 @@ def reports():
     reports = Report.query.order_by(Report.date_posted.desc())\
             .paginate(per_page=5, page=page)
     return render_template('report.html', report_form=report_form, posts=reports)
+

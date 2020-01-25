@@ -18,4 +18,18 @@ def send_report_notification(title, content, email, date):
 
 Please check on the issue ASAP.'''
     mail.send(msg)
-    
+
+def send_contact_notification(name, title, email, content):
+    sender = Config._CUSTOM_SENDER
+    recipient = Config._CUSTOM_RECIPIENT
+    recipient_2 = Config._CUSTOM_ARCHIVE
+    msg = Message('New Contact', 
+                sender=sender, 
+                recipients=[recipient, recipient_2])
+    msg.body = f'''{name} at {email}:
+------------------
+{title}
+{content}
+------------------
+end message'''
+    mail.send(msg)

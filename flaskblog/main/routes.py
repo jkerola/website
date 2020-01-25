@@ -2,8 +2,8 @@
 from datetime import datetime
 from flask import Blueprint, render_template, url_for, redirect, flash, request
 from flaskblog import db
-from flaskblog.main.forms import ReportForm
-from flaskblog.main.utils import send_report_notification
+from flaskblog.main.forms import ReportForm, ContactForm
+from flaskblog.main.utils import send_report_notification, send_contact_notification
 from flaskblog.models import Post, Report
 #blueprint for all general routes
 main = Blueprint('main', __name__)
@@ -23,11 +23,20 @@ def profile():
     report_form = ReportForm()
     return render_template('profile.html', title='Profile', report_form=report_form)
 
-@main.route('/contact', methods=['GET'])
+@main.route('/contact', methods=['GET', 'POST'])
 def contact():
     '''render the contact report_form page'''
     report_form = ReportForm()
-    return render_template('contact.html', title='Contact', report_form=report_form)
+    contact_form = ContactForm()
+    if contact_form.validate_on_submit():
+        name = contact_form.name.data
+        email = contact_form.email.data
+        title = contact_form.title.data
+        content = contact_form.content.data
+        send_contact_notification(name, title, email, content)
+        flash('Message sent!', 'success')
+        return redirect(url_for('main.contact'))
+    return render_template('contact.html', title='Contact', contact_form=contact_form, report_form=report_form)
 
 @main.route('/report', methods=['GET', 'POST'])
 def report():

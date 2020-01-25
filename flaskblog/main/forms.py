@@ -11,3 +11,12 @@ class ReportForm(FlaskForm):
     content = TextAreaField('Description', validators=[DataRequired(), Length(min=1, max=1024)])
 
     submit = SubmitField('Send Report')
+
+class ContactForm(FlaskForm):
+    '''Contact me form'''
+    name = StringField('Name', validators=[DataRequired(), Length(min=1, max=128)])
+    title = StringField('Subject', validators=[DataRequired(), Length(min=1, max=128)])
+    email = StringField('Email', validators=[DataRequired(), Length(min=1, max=128), Email()])
+    content = TextAreaField('Message', validators=[DataRequired(), Length(min=1, max=3000)])
+
+    submit = SubmitField('Send Message')

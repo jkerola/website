@@ -1,4 +1,4 @@
-@media only screen and (max-width: 1440px){
+@media only screen and (max-width: 2160px){
     
     body {
         background-color: #00A8E8;
@@ -182,15 +182,22 @@
         z-index: 1;
     }
     .portfolio-img {
-        text-align: left;
+        text-align: center;
         overflow: hidden;
-        max-width: 300px;
+        max-width: 330px;
         height: auto;
         border: 2px solid #007EA7;
+        margin-left: 2%;
         border-radius: 3px;
         margin-bottom: 30px;
     }
     
+    .portfolio-container {
+        align-self: center;
+    }
+    .portfolio-title {
+        text-align: left;
+    }
     .profile-img {
         max-width: 400px;
         height: auto;
@@ -259,6 +266,17 @@
         position: absolute;
         right: 35px;
     }
+    a {
+        word-wrap: break-word;
+    }
+    .content-section {
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #ffffff;
+    border-radius: 3px;
+    margin-top: 20px;
+    word-wrap: normal;
+    }
     .banner-text{
         font-size: 28px;
         margin-top: 50px;
@@ -295,6 +313,7 @@
         margin-left: 20px;
         margin-bottom: 30px;
     }
+
     .copyright-text{
         text-align: center;
     }
@@ -307,7 +326,7 @@
         margin-left: 10px;
         margin-bottom: 20px;
     }
-
+    
     .footer-icons{
         text-align: center;
         margin-top: -15px;

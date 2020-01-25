@@ -1,4 +1,7 @@
 {% extends 'layout.html' %}
+{% block banner %}
+    <img class='banner-img' src="{{ url_for('static', filename='images/home_banner.jpg') }}">
+{% endblock banner %}
 {% block content %}
 <div class='content-section'>
     <form method='POST' name='update'>

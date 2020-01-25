@@ -1,4 +1,7 @@
 {% extends 'layout.html' %}
+{% block banner %}
+    <img class='banner-img' src="{{ url_for('static', filename='images/home_banner.jpg') }}">
+{% endblock banner %}
 {% block content %}
 {% for post in posts.items %}
 <div class='content-section'>
@@ -60,8 +63,9 @@
                 Tags
             </button>
             <div class="dropdown-menu" aria-labelledby="archivemenu">
-                <a title='test' href="{{ url_for('post.sort_by_tags', month=request.args.get('month'), tags='test') }}" class="dropdown-item">test</a>
-                <a title='dnd' href="{{ url_for('post.sort_by_tags', month=request.args.get('month'), tags='dnd') }}" class="dropdown-item">dnd</a>
+                <a title='test' href="{{ url_for('post.sort_by_tags', month=request.args.get('month'), tags='webdev') }}" class="dropdown-item">webdev</a>
+                <a title='dnd' href="{{ url_for('post.sort_by_tags', month=request.args.get('month'), tags='hobbies') }}" class="dropdown-item">hobbies</a>
+                <a title='dnd' href="{{ url_for('post.sort_by_tags', month=request.args.get('month'), tags='other') }}" class="dropdown-item">other</a>
             </div>
         </div>
         <div class='btn-group'>

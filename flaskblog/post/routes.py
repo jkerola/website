@@ -1,4 +1,4 @@
-'''routes for the post package'''
+'''Routes for the post package.'''
 from datetime import datetime
 from flask import Blueprint, render_template, url_for, redirect, flash, request, flash
 from flask_login import current_user, login_required
@@ -11,7 +11,7 @@ post = Blueprint('post', __name__)
 
 @post.route('/blog', methods=['GET'])
 def blog():
-    '''default blog view, shows all posts'''
+    '''Default blog view, shows all posts.'''
     report_form = ReportForm()
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(per_page=3, page=page)
@@ -20,7 +20,7 @@ def blog():
 @post.route('/blog/editor', methods=['GET', 'POST'])
 @login_required
 def editor():
-    '''create new posts, edit existing ones.'''
+    '''Create new posts, edit existing ones.'''
     form = 0
     report_form = ReportForm()
     if request.method == 'POST':
@@ -43,8 +43,7 @@ def editor():
 
 @post.route('/blog/filter', methods=['GET'])
 def sort_by_tags():
-    '''filter blog posts by given tag query parameters'''
-    '''sort posts by given tag'''
+    '''Filter blog posts by given tag query parameters.'''
     report_form = ReportForm()
     page = request.args.get('page', 1, type=int)
     month = request.args.get('month', 0, type=int)
@@ -75,7 +74,7 @@ def sort_by_tags():
 
 @post.route('/blog/post/<int:post_id>', methods=['GET'])
 def find_post(post_id):
-    '''find a specific post for viewing'''
+    '''Find and display a specific post.'''
     report_form = ReportForm()
     post = Post.query.get(post_id)
     previous = request.referrer
@@ -86,7 +85,7 @@ def find_post(post_id):
 @post.route('/blog/update/<int:post_id>', methods=['POST', 'GET'])
 @login_required
 def edit_post(post_id):
-    '''edit an existing post'''
+    '''Edit an existing post.'''
     report_form = ReportForm()
     post = Post.query.get(post_id)
     if request.method=='POST':
@@ -106,7 +105,7 @@ def edit_post(post_id):
 @post.route('/blog/delete/<int:post_id>', methods=['GET'])
 @login_required
 def delete_post(post_id):
-    '''delete an existing post'''
+    '''Delete an existing post.'''
     if request.method == 'GET':
         post = Post.query.get(post_id)
         db.session.delete(post)
@@ -117,6 +116,7 @@ def delete_post(post_id):
 @post.route('/reports')
 @login_required
 def reports():
+    '''Display all submitted reports.'''
     report_form = ReportForm()
     page = request.args.get('page', 1, type=int)
     reports = Report.query.order_by(Report.date_posted.desc())\

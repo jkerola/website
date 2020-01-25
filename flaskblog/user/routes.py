@@ -1,3 +1,4 @@
+'''User specific routes.'''
 from flask import Blueprint, render_template, redirect, flash, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from flaskblog import db, bcrypt
@@ -28,14 +29,14 @@ def login():
 
 @user.route('/logout', methods=['GET'])
 def logout():
-    '''log the current user out'''
+    '''Log the current user out.'''
     logout_user()
     return redirect(url_for('user.login'))
 
 @user.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
-    '''account details page for updating info'''
+    '''Account details page for updating info.'''
     report_form = ReportForm()
     update_form = UpdateInfoForm()
     user = current_user

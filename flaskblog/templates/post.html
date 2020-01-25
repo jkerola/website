@@ -1,6 +1,8 @@
 {% extends 'layout.html' %}
+{% block banner %}
+    <img class='banner-img' src="{{ url_for('static', filename='images/home_banner.jpg') }}">
+{% endblock banner %}
 {% block content %}
-
 <div class='content-section'>
     <div class='article row'>
         <div class='col-10 align-self-center mr-auto'>

@@ -1,4 +1,4 @@
-'''main package init'''
+'''Main package configuration'''
 import os
 from flask import Flask
 from flask_bcrypt import Bcrypt
@@ -26,7 +26,7 @@ login_manager.login_message_category = 'info'
 mail = Mail()
 
 def create_app(config_class=Config):
-    '''creates the app with the given configuration'''
+    '''Create the app with the given configuration.'''
     #app
     app = Flask(__name__)
     app.config.from_object(Config)

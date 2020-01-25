@@ -44,10 +44,12 @@ def create_app(config_class=Config):
     from flaskblog.main.routes import main
     from flaskblog.post.routes import post
     from flaskblog.user.routes import user
+    from flaskblog.error.handlers import errors
 
     app.register_blueprint(main)
     app.register_blueprint(post)
     app.register_blueprint(user)
+    app.register_blueprint(errors)
 
     #errors
     # from flaskblog.errors.handlers import errors

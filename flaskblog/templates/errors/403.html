@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% block banner %}
+    <img class='banner-img' src="{{ url_for('static', filename='images/home_banner.jpg') }}">
+{% endblock banner %}
+{% block content %}
+
+<div class='content-section  offset-md-1 col-md-10'>
+    <h3 class='error-text'>Hey! You don't have permission to do that (403)</h3>
+    <p style='text-align: center;'>Please log in and try again.</p>
+    <p style='text-align: center;'>
+        If the error keeps persisting, 
+        please use the report button in the bottom right
+        corner of the page!
+    </p>    
+    <img alt='Error image' class='error-img' src="{{ url_for('static', filename='images/error_image.jpg') }}">
+    <div>
+        <p style='text-align: center;'>Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1033278">Gerd Altmann</a>
+            from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1033278">Pixabay</a></p>
+    
+    </div>
+</div>
+{% endblock content %}

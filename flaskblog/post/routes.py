@@ -76,7 +76,7 @@ def sort_by_tags():
 def find_post(post_id):
     '''Find and display a specific post.'''
     report_form = ReportForm()
-    post = Post.query.get(post_id)
+    post = Post.query.get_or_404(post_id)
     previous = request.referrer
     if previous == None:
         previous = url_for('main.home')
@@ -87,7 +87,7 @@ def find_post(post_id):
 def edit_post(post_id):
     '''Edit an existing post.'''
     report_form = ReportForm()
-    post = Post.query.get(post_id)
+    post = Post.query.get_or_404(post_id)
     if request.method=='POST':
         form = request.form
         if form['title'] and form['tags'] and form['content']:
@@ -107,7 +107,7 @@ def edit_post(post_id):
 def delete_post(post_id):
     '''Delete an existing post.'''
     if request.method == 'GET':
-        post = Post.query.get(post_id)
+        post = Post.query.get_or_404(post_id)
         db.session.delete(post)
         db.session.commit()
         flash('Post deleted', 'success')

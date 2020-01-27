@@ -74,7 +74,7 @@
             <div class='col-md-auto offset-md-1'>
                 {% block panel %}{% endblock panel %}
             </div>
-            <div class='col-md-10 offset-md-1'>
+            <div class='col-md-10 offset-md-1 small-screen'>
                 <!--display flash messages if any present-->
                 {% with messages = get_flashed_messages(with_categories=True) %}
                     {% if messages %}
@@ -121,7 +121,6 @@
                         <div class="modal-body">
                                 <form method='POST' action="{{ url_for('main.report') }}" name='report'>
                                     {{ report_form.hidden_tag() }}
-                                    {{ report_form.csrf_token }}
                                     <div class='form-group'>
                                         {{ report_form.title.label(class='form-control-label')}}
                                         {{ report_form.title(class='form-control')}}

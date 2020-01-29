@@ -261,6 +261,10 @@
 /* media sizing */
 @media only screen and (max-width: 800px) {
     /* start of media */
+    body {
+        background-position-x: 45%;
+        background-size: cover;
+    }
     .border {
         border: 3px solid black;
     }

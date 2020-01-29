@@ -3,6 +3,10 @@
     body {
         background-color: #00A8E8;
         color: #00171F;
+        background-image: url('images/home_banner.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100%;
     }
     
     h1 h2 h3 h4 h5 h6 {
